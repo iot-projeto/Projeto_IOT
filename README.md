@@ -6,6 +6,12 @@ Toda a arquitetura foi desenvolvida e testada em ambiente virtual utilizando Wok
 ## Dashboard
 <img width="1476" height="656" alt="image" src="https://github.com/user-attachments/assets/a6c89a24-6e87-43bb-a812-c1ae6b6bb5ea" />
 
+## Link dos dispositivos: 
+
+https://wokwi.com/projects/448738152659097601
+
+https://wokwi.com/projects/446560237280494593
+
 ---
 
 Objetivo
