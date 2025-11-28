@@ -3,6 +3,8 @@
 Este projeto apresenta um sistema IoT completo, capaz de monitorar o nível da água em áreas de risco e emitir alertas preventivos em tempo real via WhatsApp, simulando um dispositivo físico baseado em ESP32 e sensor ultrassônico HC-SR04.
 Toda a arquitetura foi desenvolvida e testada em ambiente virtual utilizando Wokwi, Node-RED, MQTT, InfluxDB e Grafana.
 
+## Dashboard
+<img width="1476" height="656" alt="image" src="https://github.com/user-attachments/assets/a6c89a24-6e87-43bb-a812-c1ae6b6bb5ea" />
 
 ---
 
