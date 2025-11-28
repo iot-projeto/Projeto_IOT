@@ -1,4 +1,4 @@
-## 🌧️ Sistema de Alerta para Prevenção de Perdas Particulares em Alagamentos
+## Sistema de Alerta para Prevenção de Perdas Particulares em Alagamentos
 
 Este projeto apresenta um sistema IoT completo, capaz de monitorar o nível da água em áreas de risco e emitir alertas preventivos em tempo real via WhatsApp, simulando um dispositivo físico baseado em ESP32 e sensor ultrassônico HC-SR04.
 Toda a arquitetura foi desenvolvida e testada em ambiente virtual utilizando Wokwi, Node-RED, MQTT, InfluxDB e Grafana.
@@ -6,7 +6,7 @@ Toda a arquitetura foi desenvolvida e testada em ambiente virtual utilizando Wok
 
 ---
 
-📌 Objetivo
+Objetivo
 
 Criar uma solução tecnológica de baixo custo e fácil implementação que auxilie na prevenção de danos causados por enchentes e alagamentos, permitindo:
 
@@ -24,21 +24,21 @@ O projeto está alinhado aos ODS 11 (Cidades Sustentáveis) e ODS 13 (Ação Cli
 
 ---
 
-🛠️ Tecnologias Utilizadas
+Tecnologias Utilizadas
 
-🔹 Hardware (simulado no Wokwi)
+Hardware (simulado no Wokwi)
 
 ESP32
 
 HC-SR04 — Sensor Ultrassônico
 
 
-🔹 Comunicação
+Comunicação
 
 MQTT (via Broker no Node-RED)
 
 
-🔹 Backend e Processamento
+Backend e Processamento
 
 Node-RED
 
@@ -52,7 +52,7 @@ Registro das medições no banco de dados
 
 
 
-🔹 Banco de Dados
+Banco de Dados
 
 InfluxDB
 
@@ -62,7 +62,7 @@ Consultas históricas via Data Explorer
 
 
 
-🔹 Visualização
+Visualização
 
 Grafana
 
@@ -74,7 +74,7 @@ Gráficos de nível de água e alertas emitidos
 
 
 
-🔹 Notificações
+Notificações
 
 CallMeBot API — mensagens automáticas no WhatsApp
 
@@ -82,7 +82,7 @@ CallMeBot API — mensagens automáticas no WhatsApp
 
 ---
 
-🔄 Fluxo Completo da Solução
+Fluxo Completo da Solução
 
 Wokwi (ESP32 + HC-SR04)
           ↓
@@ -97,13 +97,13 @@ InfluxDB   WhatsApp Alertas
 
 ---
 
-📸 Demonstrações
+Demonstrações
 
-🟦 Simulação do Dispositivo (Wokwi)
+Simulação do Dispositivo (Wokwi)
 
 Simulação do ESP32 medindo a distância da água.
 
-🟥 Node-RED
+Node-RED
 
 Fluxo responsável por:
 
@@ -115,12 +115,11 @@ Registrar dados
 
 Enviar alertas
 
-
-🟩 InfluxDB
+InfluxDB
 
 Histórico completo de todas as medições para análises.
 
-🟧 Grafana Dashboard
+Grafana Dashboard
 
 Painel em tempo real mostrando:
 
@@ -131,20 +130,20 @@ Nível da água
 Total de alertas enviados
 
 
-🟪 WhatsApp
+WhatsApp
 
 Envio automático de mensagens de alerta conforme nível detectado.
 
 
 ---
 
-⚙️ Como Executar o Projeto
+Como Executar o Projeto
 
-1️⃣ Simulação do ESP32
+1. Simulação do ESP32
 
 Abra o código no Wokwi e execute o sensor ultrassônico simulando variação do nível de água.
 
-2️⃣ Configure o Node-RED
+2. Configure o Node-RED
 
 Importe o fluxo fornecido no repositório
 Configure:
@@ -156,7 +155,7 @@ API de mensagens
 Conexão com InfluxDB
 
 
-3️⃣ Configurar Banco de Dados InfluxDB
+3. Configurar Banco de Dados InfluxDB
 
 Crie o bucket
 
@@ -165,14 +164,14 @@ Configure o token de acesso
 Conecte ao Node-RED
 
 
-4️⃣ Configurar o Dashboard no Grafana
+4. Configurar o Dashboard no Grafana
 
 Importe o dashboard disponibilizado
 
 Conecte à fonte de dados InfluxDB
 
 
-5️⃣ Ativar Alertas via WhatsApp
+5. Ativar Alertas via WhatsApp
 
 Gere sua chave no CallMeBot
 
@@ -182,7 +181,7 @@ Configure seu número no fluxo do Node-RED
 
 ---
 
-📊 Resultados Obtidos
+Resultados Obtidos
 
 Tempo médio inferior a 2 segundos entre leitura → processamento → alerta.
 
@@ -200,7 +199,7 @@ O sistema demonstrou excelente desempenho e robustez, indicando forte potencial 
 
 ---
 
-🚀 Melhorias Futuras
+Melhorias Futuras
 
 Construção de protótipo físico para validação em campo
 
