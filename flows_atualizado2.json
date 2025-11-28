@@ -1,0 +1,376 @@
+[
+    {
+        "id": "b98e6ed73b0b2f5a",
+        "type": "tab",
+        "label": "Fluxo 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7b8c83f5882980ca",
+        "type": "influxdb out",
+        "z": "b98e6ed73b0b2f5a",
+        "influxdb": "1bad7255628118d7",
+        "name": "InfluxDB1",
+        "measurement": "nivel",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "a2176e4c91dbcf9d",
+        "bucket": "bucket_dados",
+        "x": 760,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "0bc8d0eda1c67148",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "b98e6ed73b0b2f5a",
+        "name": "",
+        "credtype": "account",
+        "account": "923bcf22985fb0be",
+        "text": "payload",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "msg",
+        "rejectssl": false,
+        "x": 960,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a85e5c2aa2fd0233",
+        "type": "function",
+        "z": "b98e6ed73b0b2f5a",
+        "name": "function 4",
+        "func": "const nivel = parseFloat(msg.payload);\n\nmsg.nivel = nivel; \n\nmsg.payload = {\n    value: nivel\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 180,
+        "wires": [
+            [
+                "45da3dd9893111c7"
+            ]
+        ]
+    },
+    {
+        "id": "45da3dd9893111c7",
+        "type": "switch",
+        "z": "b98e6ed73b0b2f5a",
+        "name": "switch",
+        "property": "nivel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "15",
+                "vt": "num"
+            },
+            {
+                "t": "gt",
+                "v": "8",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 180,
+        "wires": [
+            [
+                "7b8c83f5882980ca"
+            ],
+            [
+                "7aa3ee3b63f4aaf1"
+            ]
+        ]
+    },
+    {
+        "id": "7aa3ee3b63f4aaf1",
+        "type": "function",
+        "z": "b98e6ed73b0b2f5a",
+        "name": "function 5",
+        "func": "const nivelAtual = msg.nivel.toFixed(1); \n\nconst registroContagem = {\n    payload: {\n        alerta_disparado: 1 \n    },\n    measurement: \"contador\" \n};\n\nconst mensagemTexto = `🚨 ALERTA MÁXIMO: Risco de Alagamento na Av. Governador Carvalho Pinto - Sao Paulo\n\nEVACUE AGORA. Nível da água subindo rapidamente.\n\nPEGUE ESSENCIAIS: Documentos (RG, CPF, etc.) e medicamentos mais importantes.\n\nSAIA: Procure imediatamente um local seguro e elevado.\n\nSua vida é a prioridade. Não volte por objetos.`;\n\nconst msgWhatsApp = {}; \nmsgWhatsApp.payload = mensagemTexto; \n\nreturn [registroContagem, msgWhatsApp];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 280,
+        "wires": [
+            [
+                "3b0583f88bb5e0a8"
+            ],
+            [
+                "0bc8d0eda1c67148"
+            ]
+        ]
+    },
+    {
+        "id": "3b0583f88bb5e0a8",
+        "type": "influxdb out",
+        "z": "b98e6ed73b0b2f5a",
+        "influxdb": "1bad7255628118d7",
+        "name": "InfluxDB2",
+        "measurement": "contador",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "a2176e4c91dbcf9d",
+        "bucket": "bucket_dados",
+        "x": 940,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6046358bfd4fe698",
+        "type": "mqtt in",
+        "z": "b98e6ed73b0b2f5a",
+        "name": "Nivel_Agua",
+        "topic": "GRUPO03/NivelAgua",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3e0888b663f774e9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "a85e5c2aa2fd0233"
+            ]
+        ]
+    },
+    {
+        "id": "f013a3f6c508cf04",
+        "type": "mqtt in",
+        "z": "b98e6ed73b0b2f5a",
+        "name": "Nivel_Agua2",
+        "topic": "GRUPOTRES/NivelAgua",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3e0888b663f774e9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 480,
+        "wires": [
+            [
+                "8e3fbe297dd34f41"
+            ]
+        ]
+    },
+    {
+        "id": "93fdbb07aad30f96",
+        "type": "influxdb out",
+        "z": "b98e6ed73b0b2f5a",
+        "influxdb": "1bad7255628118d7",
+        "name": "InfluxDB3",
+        "measurement": "nivel",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "a2176e4c91dbcf9d",
+        "bucket": "bucket_bucket",
+        "x": 760,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c065ad1dc7465114",
+        "type": "influxdb out",
+        "z": "b98e6ed73b0b2f5a",
+        "influxdb": "1bad7255628118d7",
+        "name": "InfluxDB4",
+        "measurement": "nivel",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "a2176e4c91dbcf9d",
+        "bucket": "bucket_bucket",
+        "x": 940,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "ae56129c9cf9ebe4",
+        "type": "function",
+        "z": "b98e6ed73b0b2f5a",
+        "name": "function 6",
+        "func": "const nivelAtual = msg.nivel.toFixed(1); \n\nconst registroContagem = {\n    payload: {\n        alerta_disparado: 1 \n    },\n    measurement: \"contador\" \n};\n\nconst mensagemTexto = `🚨 ALERTA MÁXIMO: Risco de Alagamento na Av. Dom Helder Cãmara - São Paulo\n\nEVACUE AGORA. Nível da água subindo rapidamente.\n\nPEGUE ESSENCIAIS: Documentos (RG, CPF, etc.) e medicamentos mais importantes.\n\nSAIA: Procure imediatamente um local seguro e elevado.\n\nSua vida é a prioridade. Não volte por objetos.`;\n\nconst msgWhatsApp = {}; \nmsgWhatsApp.payload = mensagemTexto; \n\nreturn [registroContagem, msgWhatsApp];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 620,
+        "wires": [
+            [
+                "c065ad1dc7465114"
+            ],
+            [
+                "d9dee2b6ea7f7f74"
+            ]
+        ]
+    },
+    {
+        "id": "8e3fbe297dd34f41",
+        "type": "function",
+        "z": "b98e6ed73b0b2f5a",
+        "name": "function 7",
+        "func": "const nivel = parseFloat(msg.payload);\n\nmsg.nivel = nivel;\n\nmsg.payload = {\n    value: nivel\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 480,
+        "wires": [
+            [
+                "4b43ea5b16d1b4f3"
+            ]
+        ]
+    },
+    {
+        "id": "4b43ea5b16d1b4f3",
+        "type": "switch",
+        "z": "b98e6ed73b0b2f5a",
+        "name": "switch",
+        "property": "nivel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "15",
+                "vt": "num"
+            },
+            {
+                "t": "gt",
+                "v": "8",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 480,
+        "wires": [
+            [
+                "93fdbb07aad30f96"
+            ],
+            [
+                "ae56129c9cf9ebe4"
+            ]
+        ]
+    },
+    {
+        "id": "d9dee2b6ea7f7f74",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "b98e6ed73b0b2f5a",
+        "name": "",
+        "credtype": "account",
+        "account": "923bcf22985fb0be",
+        "text": "payload",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "msg",
+        "rejectssl": false,
+        "x": 960,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1bad7255628118d7",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "InfluxDB Account",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "https://us-east-1-1.aws.cloud2.influxdata.com",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "923bcf22985fb0be",
+        "type": "node-red-contrib-whatsapp-cmb-account",
+        "name": "WhatsApp API Account"
+    },
+    {
+        "id": "3e0888b663f774e9",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": false,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b9b471ccf4eedfad",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0",
+            "node-red-contrib-whatsapp-cmb": "1.0.3"
+        }
+    }
+]
